@@ -3,14 +3,6 @@ from pandas import option_context
 import requests
 from bs4 import BeautifulSoup
 
-# URL
-url = 'https://cnas.ro/lista-medicamente/'
-# Get the HTML
-r = requests.get(url)
-html = r.text
-# Parse the HTML
-soup = BeautifulSoup(html, 'html.parser')
-
 # The first row of the table is the header
 def getHeader(med):
     header = []
@@ -33,6 +25,14 @@ def toExcel(meds_list, header):
     print('Data exported to Excel!')
 
 def main():
+
+    # URL
+    url = 'https://cnas.ro/lista-medicamente/'
+    # Get the HTML
+    r = requests.get(url)
+    html = r.text
+    # Parse the HTML
+    soup = BeautifulSoup(html, 'html.parser')
     
     meds = soup.findAll('tr')
     header = getHeader(meds[0])
